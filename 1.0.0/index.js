@@ -200,6 +200,7 @@ var Slider = Base.extend({
         var change = self.change_ = self.get('change') || Util.emptyEventFunc;
         var create = self.create_ = self.get('create') || Util.emptyEventFunc;
         var destroy = self.destroy_ = self.get('destroy') || Util.emptyEventFunc;
+
         // 对象
         var $slider = self.$slider = self.get('$target');
         var $slider_handle = self.$slider_handle = $(selector.handle, self.$slider);
@@ -215,7 +216,6 @@ var Slider = Base.extend({
                         $slider.addClass(cssClass.horizontal_value);
                         break;
                     case 'min':
-                    case 'range':
                         $slider.addClass(cssClass.horizontal_min);
                         break;
                     case 'max':
@@ -230,7 +230,6 @@ var Slider = Base.extend({
                         $slider.addClass(cssClass.vertical_value);
                         break;
                     case 'min':
-                    case 'range':
                         $slider.addClass(cssClass.vertical_min);
                         break;
                     case 'max':
@@ -256,9 +255,7 @@ var Slider = Base.extend({
                 var type = self.type_;
                 switch (key) {
                     case 37:
-                    // left
                     case 40:
-                        // down
                         switch (type) {
                             case 'value':
                             case 'min':
@@ -272,11 +269,9 @@ var Slider = Base.extend({
                                 }
                                 break;
                         }
-                        break;
+                        break
                     case 38:
-                    // up
                     case 39:
-                        // right
                         switch (type) {
                             case 'value':
                             case 'min':
@@ -299,8 +294,33 @@ var Slider = Base.extend({
                 var disabled = self.disabled_;
                 if (readOnly || disabled) return;
                 var key = e.which;
-
-                self.value_ = keyHandle(self, key);
+                var orientation = self.orientation_;
+                switch (key) {
+                    case 37:
+                        // left
+                        if (orientation === 'horizontal') {
+                            self.value_ = keyHandle(self, key);
+                        }
+                        break;
+                    case 38:
+                        // up
+                        if (orientation === 'vertical') {
+                            self.value_ = keyHandle(self, key);
+                        }
+                        break;
+                    case 39:
+                        // right
+                        if (orientation === 'horizontal') {
+                            self.value_ = keyHandle(self, key);
+                        }
+                        break;
+                    case 40:
+                        // down
+                        if (orientation === 'vertical') {
+                            self.value_ = keyHandle(self, key);
+                        }
+                        break;
+                }
                 self._value(self.value_);
             });
             self._accessible();
@@ -344,12 +364,13 @@ var Slider = Base.extend({
             // 无障碍属性
             $slider.attr({
                 'role': 'slider',
+//                'tabindex': 0,
                 'aria-readOnly': readOnly,
                 'aria-disabled': disabled,
                 'aria-step': step,
                 'aria-hidden': hidden
             });
-            $slider_handle.attr('tabindex', 0);
+            $slider_handle.attr('tabindex', 1);
             return;
         }
         var min = self.min_;
