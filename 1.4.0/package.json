@@ -1,6 +1,6 @@
 {
     "name": "slider",
-    "version": "1.3.0",
+    "version": "1.4.0",
     "devDependencies": {
         "bufferstreams": "0.0.2",
         "gulp": "^3.8.7",
