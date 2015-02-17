@@ -154,6 +154,29 @@
     </details>
 </div>
 <div class="box">
+    <h3>配置type = 'range'</h3>
+    <details open="open">
+        <summary>效果</summary>
+        <div id="slider12" class="vc-slider">
+            <div class="vc-slider-track">
+                <div class="vc-slider-range"></div>
+                <div class="vc-slider-handle"></div>
+            </div>
+        </div>
+    </details>
+    <details>
+        <summary>代码</summary>
+            <pre>
+                var s12 = new Slider({
+                    $target: '#slider12',
+                    orientation: 'horizontal',
+                    type: 'range',
+                    value: [20, 70]
+                });
+            </pre>
+    </details>
+</div>
+<div class="box">
     <h3>配置readOnly = true</h3>
     <details open="open">
         <summary>效果</summary>
@@ -302,7 +325,7 @@
                 });
                 $('#J_btn_destroy').on('click', function () {
                     var $self = $(this);
-                    s11.destroy();
+                    s11 = s11.destroy();
                     $self.attr('disabled', true);
                     $('#J_btn_display').attr('disabled', true);
                 });
@@ -317,7 +340,7 @@
         S.config({
             packages:[
                 {
-                    name:"kg/slider/1.0.0",
+                    name:"kg/slider/1.1.0",
                     path:debugPath,
                     charset:"utf-8"
                 }
@@ -325,7 +348,7 @@
         });
     }
 
-    S.use('kg/slider/1.0.0/index', function (S, Slider) {
+    S.use('kg/slider/1.1.0/index', function (S, Slider) {
         var $ = S.all;
         var s1 = new Slider({
             $target: '#slider1',
@@ -422,9 +445,16 @@
         });
         $('#J_btn_destroy').on('click', function () {
             var $self = $(this);
-            s11.destroy();
+            s11 = s11.destroy();
             $self.attr('disabled', true);
             $('#J_btn_display').attr('disabled', true);
+        });
+        var s12 = new Slider({
+            $target: '#slider12',
+            orientation: 'horizontal',
+            type: 'range',
+            step: 10,
+            value: [20, 70]
         });
     })
 </script>
