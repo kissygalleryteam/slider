@@ -6,7 +6,7 @@ Slider。
 
 ## 初始化组件
 	//皮肤文件建议直接拿源码的less文件根据自己业务定制化使用
-    S.use('kg/slider/1.2.0/index', function (S, Slider) {
+    S.use('kg/slider/1.3.0/index', function (S, Slider) {
          var vc-slider = new Slider({
             $target: '#slider'
          });
