@@ -1,9 +1,9 @@
-KISSY.add('kg/slider/1.1.0/index',["node","base","dd"],function(S ,require, exports, module) {
+KISSY.add('kg/slider/1.2.0/index',["node","base","dd"],function(S ,require, exports, module) {
  /**
  * @ignore  =====================================================================================
  * @fileoverview vc-slider组件
  * @author  yangren.ry@taobao.com
- * @version 1.1.0
+ * @version 1.2.0
  * @ignore  created in 2015-02-15
  * @ignore  =====================================================================================
  */
@@ -37,12 +37,19 @@ var Util = {
     emptyEventFunc: function (e) { }
 };
 
-var keyDown = function (self, key) {
+var keyDown = function ($handle, self, key) {
     var value = self.value_;
     var min = self.min_;
     var max = self.max_;
     var step = self.step_ > 0 ? self.step_ : 1;
     var type = self.type_;
+    if (type === 'range' && Util.typeOf(value) !== 'Array') return;
+    if (type === 'range') {
+        var val = value[0];
+        var val2 = value[1];
+        var $slider_handle = self.$slider_handle;
+        var $slider_handle2 = self.$slider_handle2;
+    }
     switch (key) {
         case 37:
         // left
@@ -53,6 +60,25 @@ var keyDown = function (self, key) {
                 case 'min':
                     if (value > min) {
                         value = value - step;
+                    }
+                    break;
+                case 'range':
+                    switch ($handle) {
+                        case $slider_handle:
+                            if (val > min) {
+                                val = val - step;
+                                value = [val, val2];
+                            }
+                            break;
+                        case $slider_handle2:
+                            if (val2 > min) {
+                                val2 = val2 - step;
+                                if (val2 < val) {
+                                    val2 = val;
+                                }
+                                value = [val, val2];
+                            }
+                            break;
                     }
                     break;
                 case 'max':
@@ -71,6 +97,25 @@ var keyDown = function (self, key) {
                 case 'min':
                     if (value < max) {
                         value = value + step;
+                    }
+                    break;
+                case 'range':
+                    switch ($handle) {
+                        case $slider_handle:
+                            if (val < max) {
+                                val = val + step;
+                                if (val > val2) {
+                                    val = val2;
+                                }
+                                value = [val, val2];
+                            }
+                            break;
+                        case $slider_handle2:
+                            if (val2 < max) {
+                                val2 = val2 + step;
+                                value = [val, val2];
+                            }
+                            break;
                     }
                     break;
                 case 'max':
@@ -446,13 +491,20 @@ var Slider = Base.extend({
                     node: $slider_handle2,
                     move: false
                 });
+                $slider_handle.on('focus', function () {
+                    self.$dragHandle = $slider_handle;
+                });
+                $slider_handle2.on('focus', function () {
+                    self.$dragHandle = $slider_handle2;
+                });
             }
             $slider.on('keydown', function (e) {
                 var readOnly = self.readOnly_;
                 var disabled = self.disabled_;
                 if (readOnly || disabled) return;
                 var key = e.which;
-                self.value_ = keyDown(self, key);
+                //todo type
+                self.value_ = keyDown(self.$dragHandle, self, key);
                 self._value(self.value_);
             });
             self._accessible();
