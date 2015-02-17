@@ -2,7 +2,7 @@
  * @ignore  =====================================================================================
  * @fileoverview vc-slider组件
  * @author  yangren.ry@taobao.com
- * @version 1.4.0
+ * @version 1.3.0
  * @ignore  created in 2015-02-15
  * @ignore  =====================================================================================
  */
@@ -770,7 +770,6 @@ var Slider = Base.extend({
 
         var val;
         var val2;
-        var _val;
 
         var handle;
 
@@ -876,21 +875,14 @@ var Slider = Base.extend({
                     val2 = parseInt((pos2 - d) * g);
                     val = Util.parseIntByStep(val, step);
                     val2 = Util.parseIntByStep(val2, step);
-                    _val = percent / 100 * max;
                     if (val < min) val = min;
                     if (val2 > max) val2 = max;
-                    if (val2 - val < _val) {
-                        val = _val - val2 + val;
-                    }
-                    if (val2 === _val) {
-                        val = _val - val2;
-                    }
-                    pos = parseInt(val / g + d);
-                    pos2 = parseInt(val2 / g + d);
                     self.value_ = [val, val2];
                     self.percent_ = percent;
+                    pos = parseInt(val / g + d);
+                    pos2 = parseInt(val2 / g + d);
                     $slider_handle2.css(direction, pos2);
-                    $slider_range.css(direction, pos + handle / 2).css(scope, pos2 - pos);
+                    $slider_range.css(scope, pos2 - pos);
                 } else {
                     pos = percent / 100 * track;
                     self.value_ = parseInt((pos - d) * g);
