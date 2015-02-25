@@ -6,7 +6,7 @@ Slider。
 
 ## 初始化组件
 	//皮肤文件建议直接拿源码的less文件根据自己业务定制化使用
-    S.use('kg/slider/1.5.0/index', function (S, Slider) {
+    S.use('kg/slider/1.6.0/index', function (S, Slider) {
          var vc-slider = new Slider({
             $target: '#slider'
          });
@@ -57,5 +57,5 @@ Slider。
 |start|外抛的CustomEventObject|组件开始滑动时触发|
 |slide|外抛的CustomEventObject|组件滑动进行中触发|
 |stop|外抛的CustomEventObject|组件停止滑动时触发|
-|change|外抛的CustomEventObject|通过*setter('value', xxx)*改变组件当前值后触发，如值前后未发生变化，则不会触发change事件|
+|change|外抛的CustomEventObject|通过*setter('value', xxx)*改变组件当前值后触发|
 |destroy|外抛的CustomEventObject|组件析构后触发|

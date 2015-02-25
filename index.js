@@ -2,8 +2,8 @@
  * @ignore  =====================================================================================
  * @fileoverview vc-slider组件
  * @author  yangren.ry@taobao.com
- * @version 1.5.0
- * @ignore  created in 2015-02-24
+ * @version 1.6.0
+ * @ignore  created in 2015-02-25
  * @ignore  =====================================================================================
  */
 var $ = require('node').all;
@@ -865,7 +865,7 @@ var Slider = Base.extend({
 
             switch (typeOfValue) {
                 case 0:
-                    if (value === min || value === max) return;
+//                    if (value === min || value === max) return;
                     pos = parseInt(value / g + d);
                     self.value_ = value;
                     self.percent_ = parseInt(pos / track * 100);
@@ -888,8 +888,8 @@ var Slider = Base.extend({
                         if (val2 === _val) {
                             val = _val - val2;
                         }
-                        if (val === min || val === max) return;
-                        if (val2 === min || val2 === max) return;
+//                        if (val === min || val === max) return;
+//                        if (val2 === min || val2 === max) return;
                         pos = parseInt(val / g + d);
                         pos2 = parseInt(val2 / g + d);
                         self.value_ = [val, val2];
@@ -899,15 +899,15 @@ var Slider = Base.extend({
                     } else {
                         pos = percent / 100 * track;
                         _val = parseInt((pos - d) * g);
-                        if (_val === min || _val === max) return;
+//                        if (_val === min || _val === max) return;
                         self.value_ = _val;
                         self.percent_ = percent;
                         $slider_range.css(scope, pos);
                     }
                     break;
                 case 2:
-                    if (val === min || val === max) return;
-                    if (val2 === min || val2 === max) return;
+//                    if (val === min || val === max) return;
+//                    if (val2 === min || val2 === max) return;
                     pos = parseInt(val / g + d);
                     pos2 = parseInt(val2 / g + d);
                     self.value_ = value;
